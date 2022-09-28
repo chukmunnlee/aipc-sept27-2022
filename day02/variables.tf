@@ -1,6 +1,7 @@
 variable DO_token {
- type = string
- sensitive = true 
+    description = "my DO token"
+    type = string
+    sensitive = true 
 }
 
 variable DO_region {
@@ -16,4 +17,11 @@ variable DO_size {
 variable DO_image {
     type = string
     default = "ubuntu-20-04-x64"
+}
+
+variable private_key {
+    type = string
+}
+variable public_key {
+    type = string
 }

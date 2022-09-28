@@ -58,6 +58,7 @@ resource local_file readme {
     filename = "readme.txt"
 }
 
+
 output mydroplet_ip {
     value = digitalocean_droplet.mydroplet.ipv4_address
 }

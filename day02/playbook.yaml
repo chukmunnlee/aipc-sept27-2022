@@ -1,0 +1,35 @@
+- name: Check connectivity
+  hosts: mydroplet
+  tasks:
+  - name: Ping the hosts
+    ping:
+  - name: Print some values
+    debug:
+      msg: ++++ ansible_user {{ greetings }}
+
+- name: Setup server
+  hosts: all
+  vars:
+    packages:
+    - name: nginx 
+    - name: python3.8
+      state: latest
+  tasks:
+  - name: Install nginx
+    apt: 
+      name: "{{ item.name }}"
+      update_cache: true
+      state: "{{ item.state | default('present') }}"
+    loop: "{{ packages }}"
+  - name: Check if /etc/hosts exists
+    stat:
+      path: /etc/hosts
+    register: host_file
+  - name: Dump host_file register
+    debug:
+      msg: "**** /etc/hosts file exists "
+    when: host_file.stat.exists
+  - name: List of installed packages
+    template:
+      src: ./package_manifest.j2
+      dest: /tmp/package_manifest.txt
