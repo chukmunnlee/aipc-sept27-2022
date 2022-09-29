@@ -18,18 +18,18 @@ variable DO_region {
     default = "sgp1"
 }
 
-source digitalocean mydroplet {
+source digitalocean codeserver {
     api_token = var.DO_token
     region = var.DO_region
     image = var.DO_image
     size = var.DO_size
-    snapshot_name = "mydroplet"
+    snapshot_name = "codeserver"
     ssh_username = "root"
 }
 
 build {
     sources = [
-        "source.digitalocean.mydroplet"
+        "source.digitalocean.codeserver"
     ]
     provisioner ansible {
         playbook_file = "playbook.yaml"
